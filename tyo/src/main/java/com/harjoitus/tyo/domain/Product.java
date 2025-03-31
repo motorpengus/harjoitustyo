@@ -13,14 +13,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String title;
+    private String name;
     private String isbn;
     private double price;
 
     public Product(){}
 
     public Product(String title, String isbn, double price) {
-        this.title = title;
+        this.name = title;
         this.isbn = isbn;
         this.price = price;
     }
@@ -33,12 +33,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String title) {
+        this.name = title;
     }
 
     public String getIsbn() {
@@ -59,7 +59,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [id=" + id + ", title=" + title + ", isbn=" + isbn + ", price=" + price + "]";
+        return "Product [id=" + id + ", name=" + name + ", isbn=" + isbn + ", price=" + price + "]";
     }
 
     

@@ -25,7 +25,7 @@ public class TyoApplication {
 			productRepository.save(new Product("Voiveitsi","2345-1234567",2));
 			productRepository.save(new Product("Haarukka","3456-1234567",2));
 			productRepository.save(new Product("Lusikka","4567-1234567",2.5));
-
+			productRepository.save(new Product("Leikkuulauta","1234-1234567", 20));
 			for (Product product : productRepository.findAll())
 				log.info(product.toString());
 		};

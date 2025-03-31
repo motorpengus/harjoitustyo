@@ -18,7 +18,12 @@ public class ProductController {
     }
     @GetMapping("/welcomepage")
     public String welcomePage(Model model) {
-        
+
         return "welcomepage";
+    }
+    @GetMapping("/products")
+    public String showProducts(Model model){
+        model.addAttribute("products", productRepository.findAll());
+        return "products";
     }
 }
