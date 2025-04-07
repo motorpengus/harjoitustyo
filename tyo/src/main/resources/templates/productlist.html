@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +14,7 @@
                 <th>Name</th>
                 <th>isbn</th>
                 <th>Price (€)</th>
+                <th>Category</th>
             </tr>
         </thead>
         <tbody>
@@ -22,9 +22,16 @@
                 <td th:text="${product.name}"></td>
                 <td th:text="${product.isbn}"></td>
                 <td th:text="${product.price}"></td>
+                <td th:text="${product.category.name}"></td>
+                <td sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/deleteproduct/{id}(id=${product.id})}" class="delete-button btn btn-danger">Delete</a></td>
             </tr>
         </tbody>
     </table>
+    <br/>
+    <td sec:authorize="hasAuthority('ADMIN')">
+    <a href="/addproduct" class="btn btn-success">Add Product</a>
+</td>
 </body>
 
 </html>
