@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
 
 <body>
     <h2>Products</h2>
+    <a href="/shoppingcart" class="btn btn-secondary">🛒 View Cart</a>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -15,6 +17,7 @@
                 <th>isbn</th>
                 <th>Price (€)</th>
                 <th>Category</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -23,15 +26,20 @@
                 <td th:text="${product.isbn}"></td>
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.category.name}"></td>
+                <td>
+                    <a th:href="@{/shoppingcart/add/{id}(id=${product.id})}" class="btn btn-primary">Add to Cart</a>
+                </td>                
                 <td sec:authorize="hasAuthority('ADMIN')">
-                <a th:href="@{/deleteproduct/{id}(id=${product.id})}" class="delete-button btn btn-danger">Delete</a></td>
+                    <a th:href="@{/deleteproduct/{id}(id=${product.id})}"
+                        class="delete-button btn btn-danger">Delete</a>
+                </td>
             </tr>
         </tbody>
     </table>
-    <br/>
+    <br />
     <td sec:authorize="hasAuthority('ADMIN')">
-    <a href="/addproduct" class="btn btn-success">Add Product</a>
-</td>
+        <a href="/addproduct" class="btn btn-success">Add Product</a>
+    </td>
 </body>
 
 </html>
