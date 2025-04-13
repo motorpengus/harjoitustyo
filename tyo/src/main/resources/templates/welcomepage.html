@@ -8,14 +8,17 @@ xmlns:th="http://www.thymeleaf.org">
 </head>
 <body>
     <h2>Welcome To My Store!</h2>
-    <a href="/productlist" class="btn btn-success">products</a>
-    <div th:if="${#authorization.expression('isAuthenticated()')}">
+    <a href="/productlist" class="btn btn-success">products</a><br/>
+    <td sec:authorize="hasAuthority('ADMIN')">
+        <a href="/categories" class="btn btn-success">categories</a>
+    </td><br/>
+    <tr th:if="${#authorization.expression('isAuthenticated()')}">
         Logged in as <span th:text="${#authentication.name}">user</span> |
         <a th:href="@{/logout}">Logout</a>
-    </div>
-
-    <div th:if="${#authorization.expression('!isAuthenticated()')}">
+    </tr>
+    
+    <tr th:if="${#authorization.expression('!isAuthenticated()')}">
         <a th:href="@{/login}">Login</a>
-    </div>
+    </tr>
 </body>
 </html>

@@ -81,6 +81,7 @@ public class ProductController {
 
     @GetMapping("/shoppingcart")
     public String viewCart(@ModelAttribute("cart") List<CartItem> cart, Model model) {
+        //price calculator
         double total = cart.stream()
                 .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
                 .sum();
