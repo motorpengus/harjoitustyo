@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
@@ -18,8 +20,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Size(min=3, max=30)
     private String name;
+    @Size(min=3, max=12)
     private String isbn;
+    @Min(value= 1)
     private double price;
 
     @JsonIgnoreProperties ("products")

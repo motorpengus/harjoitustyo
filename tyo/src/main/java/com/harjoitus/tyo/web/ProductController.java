@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,8 @@ import com.harjoitus.tyo.domain.CartItem;
 import com.harjoitus.tyo.domain.CategoryRepository;
 import com.harjoitus.tyo.domain.Product;
 import com.harjoitus.tyo.domain.ProductRepository;
+
+import jakarta.validation.Valid;
 
 @Controller
 @SessionAttributes("cart")
@@ -53,7 +56,13 @@ public class ProductController {
     }
 
     @PostMapping("/saveproduct")
-    public String saveProduct(@ModelAttribute Product product) {
+    public String saveProduct(@Valid @ModelAttribute("product") Product product,
+            BindingResult bindingResult,
+            Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());  // Re-add categories on error
+            return "addproduct"; // Return to the form if validation fails
+        }
         productRepository.save(product);
         return "redirect:/productlist";
     }
@@ -93,7 +102,7 @@ public class ProductController {
             for (CartItem item : cart) {
                 if (item.getProduct().getId().equals(productId)) {
                     item.setQuantity(item.getQuantity() + 1);
-                    return "redirect:/shoppingcart";
+                    return "redirect:/productlist";
                 }
             }
 
@@ -101,7 +110,7 @@ public class ProductController {
             cart.add(new CartItem(product, 1));
         }
 
-        return "redirect:/shoppingcart";
+        return "redirect:/productlist";
     }
 
     @GetMapping("/shoppingcart/remove/{id}")
